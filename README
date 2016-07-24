@@ -1,0 +1,12 @@
+AppCalc
+
+Configuracion de la aplicacion:
+
+1) Correr el script database.sql en MySQL
+
+2) Instalar dependencias de maven: 
+
+  mvn install -Dmaven.test.skip=true
+
+3) Correr la aplicacion: 
+  mvn spring-boot:run
