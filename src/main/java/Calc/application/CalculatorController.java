@@ -1,6 +1,5 @@
 package Calc.application;
 
-import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,14 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.List;
+
 import Calc.model.Calculator;
 import Calc.dao.CalcDaoImp;
 
 
 @RestController
 public class CalculatorController {
-
-    private final AtomicLong counter = new AtomicLong();
 
     @RequestMapping("/calculator")
     public Calculator calculator(@RequestParam(value="input", defaultValue="0") String input) {
@@ -34,5 +33,11 @@ public class CalculatorController {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring/config/beanLocations.xml");
         CalcDaoImp calcdao = (CalcDaoImp) context.getBean("calcDao"); 
         return calcdao.selectCalc(id);
+    }
+     @RequestMapping("/openAll")
+    public List<Calculator> open() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring/config/beanLocations.xml");
+        CalcDaoImp calcdao = (CalcDaoImp) context.getBean("calcDao"); 
+        return calcdao.getAll();
     }
 }

@@ -26,6 +26,11 @@ public class CalcDaoImp implements CalcDao{
         new Object[] {id},new CalcRowMapper());
     return l.get(0);
   }
+
+  public List<Calculator> getAll(){
+    JdbcTemplate template = new JdbcTemplate(dataSource);
+    return template.query("SELECT * FROM CALCULOS",new CalcRowMapper());
+  }
   
   public void setDataSource(DataSource dataSource){
     this.dataSource = dataSource;

@@ -80,7 +80,7 @@ public class Calculator {
 
     public Calculator(String inPut) {
         this.inPut = inPut.replace('$','+');
-        this.outPut = String.valueOf(eval(inPut.replace('$','+')));
+        this.outPut = String.valueOf(eval(this.inPut));
     } 
 
     public int getId() {

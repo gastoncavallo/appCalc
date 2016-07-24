@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+</style>
+<body>
+    <h1>AppCalc</h1>
+    <label for="">Input</label><input type="text" id="inputCalc"></input><input type="text" id="outputCalc"> </input>
+    <button id="calcular">Calcular</button>
+    <button id="guardar">Guardar</button>
+    <button id="calculosGuardados">Recuperar Sesion de calculos</button>
+    
+    <!-- TABLE  -->
+    <table id="table" style="width:100%">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Input</th>
+          <th>Output</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+    <script>
+
+      $( document ).ready(function() {
+
+        $("#calcular").on('click', function() {
+            var input = $("#inputCalc").val();
+
+          $.ajax({
+            method: 'GET',
+            url: 'http://localhost:8080/calculator',
+            data: { input: input.replace('+', '$') }
+          }).done(function(result) {
+            $("#outputCalc").val(result.outPut);
+          });
+
+        });
+          
+        $("#guardar").on('click', function() {
+          var input = $("#inputCalc").val();
+
+          $.ajax({
+            method: 'GET',
+            url: 'http://localhost:8080/calcSave',
+            data: { input: input.replace('+', '$') }
+          }).done(function(result) {
+            alert("Calculo guardado");
+            $("#outputCalc").val(result.outPut);
+          });
+        });
+
+        $("#calculosGuardados").on('click', function() {
+
+          $.ajax({
+            method: 'GET',
+            url: 'http://localhost:8080/openAll' 
+          }).done(function(result) {
+            $("#table tbody > tr").remove();
+            var table = $("#table");
+
+            $.each(result, function(idx, elem){
+              table.append("<tr><td>"+elem.id+"</td><td>"+elem.inPut+"</td><td>"+elem.outPut+"</td></tr>");
+            });
+
+          });
+
+        });
+      });
+  </script>
+</body>
+</html>
