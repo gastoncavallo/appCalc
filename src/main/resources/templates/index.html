@@ -43,7 +43,11 @@
             url: 'http://localhost:8080/calculator',
             data: { input: input.replace('+', '$') }
           }).done(function(result) {
+            if (result.outPut!=null){
             $("#outputCalc").val(result.outPut);
+          }else{
+            alert("Fallo al calcular, la formula ingresada es invalida");
+          }
           });
 
         });
@@ -56,8 +60,12 @@
             url: 'http://localhost:8080/calcSave',
             data: { input: input.replace('+', '$') }
           }).done(function(result) {
-            alert("Calculo guardado");
-            $("#outputCalc").val(result.outPut);
+            if(result.outPut!=null){
+              alert("Calculo guardado");
+              $("#outputCalc").val(result.outPut);
+            }else{
+              alert("Fallo al guardar calculo, la formula es invalida");
+            }
           });
         });
 

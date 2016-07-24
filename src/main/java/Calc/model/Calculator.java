@@ -63,7 +63,9 @@ public class Calculator {
                     while ((ch >= '0' && ch <= '9') || ch == '.') nextChar();
                     x = Double.parseDouble(str.substring(startPos, this.pos));
                 } else if (ch >= 'a' && ch <= 'z') { 
-                    while (ch >= 'a' && ch <= 'z') nextChar();
+                    while (ch >= 'a' && ch <= 'z') {
+                        throw new RuntimeException("Unexpected: " + (char)ch);
+                    }
                     x = parseFactor();
                 } else {
                     throw new RuntimeException("Unexpected: " + (char)ch);
@@ -80,7 +82,11 @@ public class Calculator {
 
     public Calculator(String inPut) {
         this.inPut = inPut.replace('$','+');
-        this.outPut = String.valueOf(eval(this.inPut));
+        try{
+            this.outPut = String.valueOf(eval(this.inPut));
+        }catch(Exception e){
+            this.outPut = null;
+        }
     } 
 
     public int getId() {

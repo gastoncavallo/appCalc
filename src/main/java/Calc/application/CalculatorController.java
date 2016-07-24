@@ -25,7 +25,8 @@ public class CalculatorController {
         Calculator c = new Calculator(input);
         ApplicationContext context = new ClassPathXmlApplicationContext("spring/config/beanLocations.xml");
         CalcDaoImp calcdao = (CalcDaoImp) context.getBean("calcDao"); 
-        calcdao.createCalc(c.getInPut(),c.getOutPut());
+        if(c.getOutPut()!=null)
+            calcdao.createCalc(c.getInPut(),c.getOutPut());
         return c;
     } 
     @RequestMapping("/open")

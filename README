@@ -4,9 +4,14 @@ Configuracion de la aplicacion:
 
 1) Correr el script database.sql en MySQL
 
-2) Instalar dependencias de maven: 
+2) Configurar user y pass de MySQL en el archivo database.properties (en resouces/properties) 
+
+3) Instalar dependencias de maven: 
 
   mvn install -Dmaven.test.skip=true
 
-3) Correr la aplicacion: 
+4) Correr la aplicacion: 
   mvn spring-boot:run
+
+5) Ir a la url:
+  localhost:8080
